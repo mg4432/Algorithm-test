@@ -7,4 +7,4 @@ for loc in range(0, len_s) :
         val = s[loc:loc+k]
         lst.append(val)
 
-print(len(list(set(lst))))
+print(len(set(lst)))
