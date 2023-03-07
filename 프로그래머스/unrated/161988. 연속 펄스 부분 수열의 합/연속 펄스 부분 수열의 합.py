@@ -6,7 +6,6 @@ def solution(sequence):
     
     sequence = [0] + sequence
     
-    Max, Min = 1, 1
     Max = max(sequence[1:]) - min(sequence)
     Min = abs(min(sequence[1:]) - max(sequence))
     
