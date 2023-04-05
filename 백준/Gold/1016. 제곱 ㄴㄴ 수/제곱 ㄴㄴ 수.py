@@ -1,12 +1,11 @@
-min, max = map(int, input().split())
+n, m = map(int, input().split()) 
+lst = [1 for i in range(m - n + 1)] 
 
-answer = max - min + 1
-divisibleByTheSquare = [False] * (max-min+1)
+for i in range(2, int(m**0.5)+1) : 
+    sq = i ** 2 
+    min_times = divmod(n-1, sq)[0] + 1
+    for j in range(min_times * sq, m+1, sq) : 
+        if n <= j <= m and lst[j-n] == 1 : 
+            lst[j-n] = 0
 
-for i in range(2, int(max**0.5+1)):
-    square = i**2
-    for j in range((((min-1)//square)+1)*square, max+1, square):
-        if not divisibleByTheSquare[j-min] :
-            divisibleByTheSquare[j-min] = True
-            answer -= 1
-print(answer)
+print(sum(lst))
