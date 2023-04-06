@@ -1,25 +1,25 @@
 def solution(genres, plays):
     answer = []
-    genre_dict = {} 
+    plays = [[i, genres[i], plays[i]] for i in range(len(plays))]
     
-    for i in range(len(genres)) :
-        gen, play = genres[i], plays[i]
-        if gen in genre_dict : 
-            genre_dict[gen] += play
+    counter_dict = {}
+    for genre in list(set(genres)) : 
+        counter_dict[genre] = sum([p[2] for p in plays if p[1] == genre])
+        
+    counter = [[key, value] for key, value in counter_dict.items()]
+    counter = sorted(counter, key = lambda x : -x[1])
+        
+    genre_lst = [cnt[0] for cnt in counter]
+    
+
+    # search 
+    for genre in genre_lst : 
+        tmp = [x for x in plays if x[1] == genre]
+        tmp = sorted(tmp, key = lambda x : -x[2])
+        
+        if len(tmp) == 1 : 
+            answer.append(tmp[0][0])
         else : 
-            genre_dict[gen] = play
-            
-    genre_rank = sorted(genre_dict.items(), key = lambda item : item[1], reverse = True)
-    genre_rank = [pair[0] for pair in genre_rank]
-    
-    pair_dict = {}
-    for i in range(len(genres)) : 
-        pair_dict[i] = (genres[i], plays[i])
-        
-    for gr in genre_rank : 
-        lst = [(k, v[1])  for k, v in pair_dict.items() if v[0] == gr]
-        lst = sorted(lst, key = lambda x : x[1], reverse = True)[:2]
-        lst = [x[0] for x in lst]
-        answer.extend(lst)
-        
+            for i in range(2) : 
+                answer.append(tmp[i][0])
     return answer
